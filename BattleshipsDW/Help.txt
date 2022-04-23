@@ -1,0 +1,38 @@
+﻿                @@ BATTLESHIPS HELP @@
+This is a one-sided game of Battleships against ships
+placed by the computer. The Game consist of 2 main phases.
+First one is placing all of the ships on the grid and
+the second one is firing shots at the enemy fleet.
+
+## SHIP PLACEMENT
+
+In order to place a ship first select its orientation
+'v' for vertical or 'h' for horizontal + ENTER,
+then enter coordinates in the form of A5 + ENTER.
+
+EXAMPLE:
+Placing Battleship, length of this ship is 5.
+Choose ship orientation (h - horizontal, v - vertical):
+h
+Input coordinates e.g. B2 or G3 :
+C3
+
+  A B C D E F G H I J
+0 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+3 ~ ~ B B B B B ~ ~ ~
+4 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+5 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+6 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+7 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+8 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+9 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+## FIRING
+
+To fire at enemy fleet simply anter coordinates which
+You want to target and press ENTER.
+
+
+                           Press ENTER to continue...
