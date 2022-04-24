@@ -139,7 +139,39 @@ namespace BattleshipsDW.Tests
             //assert
             Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
         }
+        [TestMethod()]
+        public void PlaceShipsTest()
+        {
+            //arrange
+            var console = new ConsoleTestWrapper();
+            console.LinesToRead = new List<string>
+            { 
+                "v",
+                "D3",
+                "h",
+                "F4"
+            };
+            var player = new Player1();
+            player.ShipsList.Ships.Clear();
+            player.ShipsList.Ships.Add(new Battleship());
+            player.ShipsList.Ships.Add(new Destroyer());
+            char[,] expected = {
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', 'B', '~', 'D', 'D', 'D', 'D', '~'},
+                {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+            };
+            //act
+            player.PlaceShips(console);
+            //assert
+            Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
+        }
 
-        
     }
 }

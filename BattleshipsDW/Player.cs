@@ -177,7 +177,7 @@ public class Player1 : Player
         TargetGrid = new Grid();
         ShipsList = new Fleet();
     }
-    public void PlaceShips()
+    public void PlaceShips(IConsole Console)
     {
         string message = "";
         Console.Clear();
@@ -243,7 +243,7 @@ public class Player1 : Player
         Console.Clear();
         Console.WriteLine("All ships placed succesfully. Start firing!");
     }
-    public void Fire(out XY xy, out string firing)
+    public void Fire(out XY xy, IConsole Console, out string firing)
     {
         bool stop = false;
         int x = 0;

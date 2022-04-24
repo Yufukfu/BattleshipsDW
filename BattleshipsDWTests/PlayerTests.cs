@@ -74,7 +74,7 @@ namespace BattleshipsDW.Tests
         {
             //arrange
             var ship = player.ShipsList.Ships[0];
-            player.PlaceShip(2, 2, Alignment.Horizontal,ship);
+            player.PlaceShip(2, 2, Alignment.Horizontal, ship);
             var xy = new XY(0, 0);
             string expected = "Miss";
             //act
@@ -152,5 +152,7 @@ namespace BattleshipsDW.Tests
             //assert
             Assert.IsTrue(player.TargetGrid.Panels[xy.X, xy.Y] == expected && sunkShips == sunkShipsUpdate);
         }
+
+        
     }
 }

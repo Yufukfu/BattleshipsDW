@@ -12,6 +12,8 @@ namespace BattleshipsDW
         public GameState State { get; set; }
         public TurnState Turn { get; set; }
 
+        public IConsole Console { get; set; }
+
         public Player1 player1;
         public Player2 player2;
 
@@ -23,13 +25,14 @@ namespace BattleshipsDW
             if (x.Next() % 2 == 0) Turn = TurnState.Player2;
             player1 = new Player1();
             player2 = new Player2();
+            Console = new ConsoleWrapper();
         }
         public void StartGame()
         {
             State = GameState.Start;
             player1.Restart();
             player2.Restart();
-            player1.PlaceShips();
+            player1.PlaceShips(Console);
             player2.PlaceShips();
             player1.PrintStatus();
             string winner = "";
@@ -37,9 +40,9 @@ namespace BattleshipsDW
             {
                 winner = PlayTurn();
             }
-            Console.WriteLine();
+            Console.WriteLine("");
             Console.WriteLine($"{winner} won the game!");
-            Console.WriteLine();
+            Console.WriteLine("");
             Console.WriteLine("Press ENTER to continue");
             Console.ReadLine();
         }
@@ -53,7 +56,7 @@ namespace BattleshipsDW
                 switch (Turn)
                 {
                     case TurnState.Player1:
-                        player1.Fire(out xy, out string firing1);
+                        player1.Fire(out xy, Console, out string firing1);
                         player2.React(xy, out string message1);
                         player1.InterpretMessage(message1, xy);
                         turnSummary = $"{turnSummary}\n{firing1}\n{message1}\n";
