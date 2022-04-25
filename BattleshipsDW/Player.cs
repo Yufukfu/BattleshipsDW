@@ -9,13 +9,11 @@ namespace BattleshipsDW;
 
 public abstract class Player
 {
-    public string Name { get; set; }
+    public string Name;
     public Grid OceanGrid;
     public Grid TargetGrid;
     public Fleet ShipsList;
 
-    //board setting
-    public const int gridSize = 10;
     public Player()
     {
         Name = "";
@@ -29,43 +27,6 @@ public abstract class Player
         OceanGrid = new Grid();
         TargetGrid = new Grid();
         ShipsList = new Fleet();
-    }
-
-    public bool PlaceShip(int x, int y, Alignment alignment, Ship ship)
-    {
-        XY position = new(x, y);
-        bool PositionValid = true;
-        for (int i = 0; i < ship.Length; i++)
-        {
-            if (x >= gridSize || y >= gridSize || OceanGrid.Panels[x, y] != '~')
-            {
-                PositionValid = false;
-                break;
-            }
-
-            if (alignment == Alignment.Horizontal)
-                y++;
-            else if (alignment == Alignment.Vertical)
-                x++;
-
-        }
-
-        if (PositionValid)
-        {
-            x = position.X;
-            y = position.Y;
-            for (int i = 0; i < ship.Length; i++)
-            {
-                OceanGrid.Panels[x, y] = ship.Name[0];
-                ship.Coordinates.Add(new XY(x, y));
-                if (alignment == Alignment.Horizontal)
-                    y++;
-                else if (alignment == Alignment.Vertical)
-                    x++;
-            }
-            ship.Hits = 0;
-        }
-        return PositionValid;
     }
 
     public void PrintStatus()// print board and ships left
@@ -86,7 +47,6 @@ public abstract class Player
         TargetGrid.PrintBoard();
     }
 
-
     public static bool CheckInput(string position, out int x, out int y)
     {
         x = 0;
@@ -100,26 +60,7 @@ public abstract class Player
         }
         else return false;
     }
-    public bool AllShipsAlive()
-    {
-        // return Ships.All(ship => !ship.IsSunk());
-        // var xdd = Ships.Where(z => z.Hits > 0).Select(y => y.Name);
-
-        foreach (Ship ship in ShipsList.Ships)
-        {
-            if (ship.IsSunk() == true) return false;
-        }
-        return true;
-    }
-
-    public bool AllShipsSunk()
-    {
-        foreach (Ship ship in ShipsList.Ships)
-        {
-            if (ship.IsSunk() == false) return false;
-        }
-        return true;
-    }
+    
 
     public void React(XY xy, out string message)
     {
@@ -177,73 +118,74 @@ public class Player1 : Player
         TargetGrid = new Grid();
         ShipsList = new Fleet();
     }
-    public void PlaceShips(IConsole Console)
+    public void PlaceShips(IConsole console)
     {
         string message = "";
-        Console.Clear();
-        Console.WriteLine("Place Your Ships!");
+        console.Clear();
+        console.WriteLine("Place Your Ships!");
         PrintStatus();
-        while (!AllShipsAlive())
+        while (!ShipsList.AllShipsAlive())
         {
             foreach (Ship ship in ShipsList.Ships)
             {
 
-                if (ship.Hits != 0)
+                if (ship.Hits == 0)
                 {
-                    Console.WriteLine($"Placing {ship.Name}, length of this ship is {ship.Length}.");
-                    Console.WriteLine("Choose ship orientation (h - horizontal, v - vertical):");
-                    string orientation = Console.ReadLine();
-                    Alignment alignment;
-                    if (orientation == "h")
-                    {
-                        alignment = Alignment.Horizontal;
-                    }
-                    else if (orientation == "v")
-                    {
-                        alignment = Alignment.Vertical;
-                    }
-                    else
-                    {
-                        message = "ERROR - Invalid orientation";
-                        break;
-                    }
+                    continue;
+                }
+                console.WriteLine($"Placing {ship.Name}, length of this ship is {ship.Length}.");
+                console.WriteLine("Choose ship orientation (h - horizontal, v - vertical):");
+                string orientation = console.ReadLine();
+                Alignment alignment;
+                if (orientation == "h")
+                {
+                    alignment = Alignment.Horizontal;
+                }
+                else if (orientation == "v")
+                {
+                    alignment = Alignment.Vertical;
+                }
+                else
+                {
+                    message = "ERROR - Invalid orientation";
+                    break;
+                }
 
-                    Console.WriteLine("Input coordinates e.g. B2 or G3 :");
-                    string position = Console.ReadLine();
-                    if (CheckInput(position, out int x, out int y))
+                console.WriteLine("Input coordinates e.g. B2 or G3 :");
+                string position = console.ReadLine();
+                if (CheckInput(position, out int x, out int y))
+                {
+                    bool shipPlaced = OceanGrid.PlaceShip(x, y, alignment, ship);
+                    if (shipPlaced)
                     {
-                        bool shipPlaced = PlaceShip(x, y, alignment, ship);
-                        if (shipPlaced)
-                        {
-                            message = "Ship placed succesfully.";
-                            Console.Clear();
-                            Console.WriteLine("Place Your Ships!");
-                            PrintStatus();
-                            Console.WriteLine(message);
-                            continue;
-                        }
-                        else
-                        {
-                            message = "Cannot place ship in this position.";
-                            break;
-                        }
+                        message = "Ship placed succesfully.";
+                        console.Clear();
+                        console.WriteLine("Place Your Ships!");
+                        PrintStatus();
+                        console.WriteLine(message);
+                        continue;
                     }
                     else
                     {
-                        message = "ERROR - Invalid coordinates";
+                        message = "Cannot place ship in this position.";
                         break;
                     }
                 }
+                else
+                {
+                    message = "ERROR - Invalid coordinates";
+                    break;
+                }
             }
-            Console.Clear();
-            Console.WriteLine("Place Your Ships!");
+            console.Clear();
+            console.WriteLine("Place Your Ships!");
             PrintStatus();
-            Console.WriteLine(message);
+            console.WriteLine(message);
         }
-        Console.Clear();
-        Console.WriteLine("All ships placed succesfully. Start firing!");
+        console.Clear();
+        console.WriteLine("All ships placed succesfully. Start firing!");
     }
-    public void Fire(out XY xy, IConsole Console, out string firing)
+    public void Fire(out XY xy, IConsole console, out string firing)
     {
         bool stop = false;
         int x = 0;
@@ -252,8 +194,8 @@ public class Player1 : Player
         firing = "";
         while (!stop)
         {
-            Console.WriteLine("Input coordinates e.g. B2 or G3 :");
-            string position = Console.ReadLine();
+            console.WriteLine("Input coordinates e.g. B2 or G3 :");
+            string position = console.ReadLine();
             if (CheckInput(position, out x, out y))
             {
                 if (TargetGrid.Panels[x, y] == '~')
@@ -263,7 +205,7 @@ public class Player1 : Player
                     stop = true;
                 }
             }
-            Console.WriteLine("Can't attack this coordinates.");
+            console.WriteLine("Can't attack this coordinates.");
         }
     }
 }
@@ -278,7 +220,7 @@ public class Player2 : Player
     }
     public void PlaceShips()
     {
-        while (!AllShipsAlive())
+        while (!ShipsList.AllShipsAlive())
         {
             foreach (Ship ship in ShipsList.Ships)
             {
@@ -292,13 +234,13 @@ public class Player2 : Player
 
                     int x = random.Next(10);
                     int y = random.Next(10);
-                    bool shipPlaced = PlaceShip(x, y, alignment, ship);
+                    bool shipPlaced = OceanGrid.PlaceShip(x, y, alignment, ship);
                     if (!shipPlaced) break;
                 }
             }
         }
     }
-    public void Fire(out XY xy, out string firing)
+    public void Fire(out XY xy, IConsole console, out string firing)
     {
         xy = new XY(0, 0);
         bool stop = false;

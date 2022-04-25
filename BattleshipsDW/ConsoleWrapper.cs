@@ -13,6 +13,7 @@ namespace BattleshipsDW
         string ReadLine();
         void Clear();
     }
+
     public class ConsoleWrapper : IConsole
     {
         public void Write(string message)
@@ -35,6 +36,7 @@ namespace BattleshipsDW
             Console.Clear();
         }
     }
+
     public class ConsoleTestWrapper : IConsole
     {
         public List<String> LinesToRead = new();
@@ -53,9 +55,9 @@ namespace BattleshipsDW
             LinesToRead.RemoveAt(0);
             return result;
         }
+
         public void Clear()
         {
-         
         }
     }
 }

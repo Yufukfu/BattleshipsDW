@@ -8,7 +8,7 @@ namespace BattleshipsDW
 {
     public class Grid
     {
-        public int Size { get; set; }
+        public int Size;
         public char[,] Panels;
         public Fleet Ships;
 
@@ -18,10 +18,9 @@ namespace BattleshipsDW
             PopulateBoard();
         }
 
-        public void PopulateBoard()
+        private void PopulateBoard()
         {
-            // todo - moze zrobic jakas glowna klase zeby te size przenosic
-            Panels = new char[Player.gridSize, Player.gridSize];
+            Panels = new char[Size, Size];
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
@@ -30,6 +29,7 @@ namespace BattleshipsDW
                 }
             }
         }
+
         public void PrintBoard()
         {
             Console.WriteLine("  A B C D E F G H I J");
@@ -54,11 +54,39 @@ namespace BattleshipsDW
             }
         }
 
+        public bool PlaceShip(int x, int y, Alignment alignment, Ship ship)
+        {
+            XY position = new(x, y);
+            bool PositionValid = true;
+            for (int i = 0; i < ship.Length; i++)
+            {
+                if (x >= Size || y >= Size || Panels[x, y] != '~')
+                {
+                    PositionValid = false;
+                    break;
+                }
 
-
-
-
-
-
+                if (alignment == Alignment.Horizontal)
+                    y++;
+                else if (alignment == Alignment.Vertical)
+                    x++;
+            }
+            if (PositionValid)
+            {
+                x = position.X;
+                y = position.Y;
+                for (int i = 0; i < ship.Length; i++)
+                {
+                    Panels[x, y] = ship.Name[0];
+                    ship.Coordinates.Add(new XY(x, y));
+                    if (alignment == Alignment.Horizontal)
+                        y++;
+                    else if (alignment == Alignment.Vertical)
+                        x++;
+                }
+                ship.Hits = 0;
+            }
+            return PositionValid;
+        }
     }
 }

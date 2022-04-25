@@ -8,11 +8,11 @@ namespace BattleshipsDW
 {
     public class Ship
     {
-        public string Name { get; set; }
+        public string Name;
         public List<XY> Coordinates;
-        public int Length { get; set; }
-        public int Hits { get; set; }
-        public bool EnemySunk { get; set; }
+        public int Length;
+        public int Hits;
+        public bool EnemySunk;
         public bool IsSunk()
         {
             return Hits >= Length;

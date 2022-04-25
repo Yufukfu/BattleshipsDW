@@ -60,7 +60,7 @@ namespace BattleshipsDW.Tests
             };
 
             //act
-            player.PlaceShip(x, y, alignment, ship);
+            player.OceanGrid.PlaceShip(x, y, alignment, ship);
 
             //assert
             Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
@@ -88,7 +88,7 @@ namespace BattleshipsDW.Tests
             };
 
             //act
-            player.PlaceShip(x, y, alignment, ship);
+            player.OceanGrid.PlaceShip(x, y, alignment, ship);
 
             //assert
             Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
@@ -104,7 +104,7 @@ namespace BattleshipsDW.Tests
             var alignment = Alignment.Horizontal;
             var expected = emptyGrid;
             //act
-            player.PlaceShip(x, y, alignment, ship);
+            player.OceanGrid.PlaceShip(x, y, alignment, ship);
             //assert
             Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
         }
@@ -134,8 +134,8 @@ namespace BattleshipsDW.Tests
                 {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
             };
             //act
-            player.PlaceShip(x1, y1, alignment1, ship1);
-            player.PlaceShip(x2, y2, alignment2, ship2);
+            player.OceanGrid.PlaceShip(x1, y1, alignment1, ship1);
+            player.OceanGrid.PlaceShip(x2, y2, alignment2, ship2);
             //assert
             Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
         }

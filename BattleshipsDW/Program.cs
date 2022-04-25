@@ -11,7 +11,6 @@ namespace BattleshipsDW
     {
         static void Main()
         {
-
             Console.WindowWidth = 60;
             Console.WindowHeight = 45;
             PrintHelp();
@@ -40,7 +39,6 @@ namespace BattleshipsDW
                         Console.WriteLine("Type 'h' for help.");
                         break;
                 }
-
             }
             Console.WriteLine("Good bye!");
         }
@@ -50,8 +48,7 @@ namespace BattleshipsDW
             Game game = new();
             game.StartGame();
         }
-
-
+        
         private static void PrintHelp()
         {
             Console.WriteLine(
@@ -63,11 +60,12 @@ namespace BattleshipsDW
                 "x -- Exit the program\n"
                 );
         }
+
         private static void PrintGameHelp()
         {
             Console.Clear();
             var lines = File.ReadAllLines(@"Help.txt");
-            foreach (var line in lines)
+            foreach (string line in lines)
             {
                 Console.WriteLine(line);
             }

@@ -46,27 +46,27 @@ namespace BattleshipsDW.Tests
         [TestMethod()]
         public void AllShipsAliveTest()
         {
-            foreach (var ship in player.ShipsList.Ships)
+            foreach (Ship ship in player.ShipsList.Ships)
             {
                 ship.Hits = 0;
             }
-            Assert.IsTrue(player.AllShipsAlive());
+            Assert.IsTrue(player.ShipsList.AllShipsAlive());
             player.ShipsList.Ships[0].Hits = 1;
-            Assert.IsTrue(player.AllShipsAlive());
+            Assert.IsTrue(player.ShipsList.AllShipsAlive());
             player.ShipsList.Ships[0].Hits = player.ShipsList.Ships[0].Length;
-            Assert.IsFalse(player.AllShipsAlive());
+            Assert.IsFalse(player.ShipsList.AllShipsAlive());
 
         }
         [TestMethod()]
         public void AllSunkTest()
         {
-            foreach (var ship in player.ShipsList.Ships)
+            foreach (Ship ship in player.ShipsList.Ships)
             {
                 ship.Hits = ship.Length;
             }
-            Assert.IsTrue(player.AllShipsSunk());
+            Assert.IsTrue(player.ShipsList.AllShipsSunk());
             player.ShipsList.Ships[0].Hits = 1;
-            Assert.IsFalse(player.AllShipsSunk());
+            Assert.IsFalse(player.ShipsList.AllShipsSunk());
         }
 
         [TestMethod()]
@@ -74,7 +74,7 @@ namespace BattleshipsDW.Tests
         {
             //arrange
             var ship = player.ShipsList.Ships[0];
-            player.PlaceShip(2, 2, Alignment.Horizontal, ship);
+            player.OceanGrid.PlaceShip(2, 2, Alignment.Horizontal, ship);
             var xy = new XY(0, 0);
             string expected = "Miss";
             //act
@@ -88,7 +88,7 @@ namespace BattleshipsDW.Tests
         {
             //arrange
             var ship = player.ShipsList.Ships[0];
-            player.PlaceShip(2, 2, Alignment.Horizontal, ship);
+            player.OceanGrid.PlaceShip(2, 2, Alignment.Horizontal, ship);
             var xy = new XY(2, 2);
             string expected = "Hit";
             //act
@@ -102,7 +102,7 @@ namespace BattleshipsDW.Tests
         {
             //arrange
             var ship = player.ShipsList.Ships[0];
-            player.PlaceShip(2, 2, Alignment.Horizontal, ship);
+            player.OceanGrid.PlaceShip(2, 2, Alignment.Horizontal, ship);
             ship.Hits = ship.Length;
             var xy = new XY(2, 2);
             string expected = "Sunk";

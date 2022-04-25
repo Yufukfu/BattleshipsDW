@@ -8,20 +8,20 @@ namespace BattleshipsDW
 {
     public class XY
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X;
+        public int Y;
         public XY(int x, int y)
         {
             X = x;
             Y = y;
         }
-    public string ToPosition()
-    {
-            var p1 = char.ToUpper((char)(X+65));
-            var p2 = Y.ToString();
+
+        public string ToPosition()
+        {
+            var p1 = char.ToUpper((char)(Y + 65));
+            var p2 = X.ToString();
             string position = p1 + p2;
             return position;
-    }
-    
+        }
     }
 }

@@ -6,14 +6,6 @@ using System.Threading.Tasks;
 
 namespace BattleshipsDW
 {
-    public enum GameState
-    {
-        Start,
-        PlacingShips,
-        Firing,
-        End
-    }
-
     public enum TurnState
     {
         Player1,
@@ -25,5 +17,4 @@ namespace BattleshipsDW
         Vertical,
         Horizontal
     }
-
 }
