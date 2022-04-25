@@ -12,6 +12,7 @@ namespace BattleshipsDW.Tests
     public class PlayerTests
     {
         readonly Player player = new Player1();
+
         [TestMethod()]
         public void CheckInputStandardTest()
         {
@@ -22,6 +23,7 @@ namespace BattleshipsDW.Tests
             //assert
             Assert.IsTrue(x == 3 && y == 2 && valid);
         }
+
         [TestMethod()]
         public void CheckInputLowerCaseTest()
         {
@@ -137,6 +139,7 @@ namespace BattleshipsDW.Tests
             //assert
             Assert.IsTrue(player.TargetGrid.Panels[xy.X, xy.Y] == expected);
         }
+
         [TestMethod()]
         public void InterpretMessageSunkTest()
         {
@@ -153,6 +156,41 @@ namespace BattleshipsDW.Tests
             Assert.IsTrue(player.TargetGrid.Panels[xy.X, xy.Y] == expected && sunkShips == sunkShipsUpdate);
         }
 
-        
+        [TestMethod()]
+        public void FireStandardTest()
+        {
+            //arrange
+            Player1 player = new();
+            var console = new ConsoleTestWrapper();
+            console.LinesToRead = new List<string>
+            {
+                "H2",
+            };
+            string expectedFiring = $"{player.Name}: H2";
+            //act
+            player.Fire(out XY xy, console, out string firing);
+            //assert
+            Assert.IsTrue(xy.X == 2 && xy.Y == 7);
+            Assert.IsTrue(firing == expectedFiring);
+        }
+
+        [TestMethod()]
+        public void FireMistakeTest()
+        {
+            //arrange
+            Player1 player = new();
+            var console = new ConsoleTestWrapper();
+            console.LinesToRead = new List<string>
+            {
+                "g6",
+                "G7"
+            };
+            string expectedFiring = $"{player.Name}: G7";
+            //act
+            player.Fire(out XY xy, console, out string firing);
+            //assert
+            Assert.IsTrue(xy.X == 7 && xy.Y == 6);
+            Assert.IsTrue(firing == expectedFiring);
+        }
     }
 }

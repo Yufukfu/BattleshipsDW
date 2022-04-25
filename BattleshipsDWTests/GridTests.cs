@@ -37,7 +37,6 @@ namespace BattleshipsDW.Tests
             return true;
         }
 
-
         [TestMethod()]
         public void PlaceShipHorizontalyTest()
         {
@@ -139,6 +138,7 @@ namespace BattleshipsDW.Tests
             //assert
             Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
         }
+
         [TestMethod()]
         public void PlaceShipsTest()
         {
@@ -164,6 +164,44 @@ namespace BattleshipsDW.Tests
                 {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
                 {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
                 {'~', '~', '~', 'B', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+            };
+            //act
+            player.PlaceShips(console);
+            //assert
+            Assert.IsTrue(CompareGrids(expected, player.OceanGrid.Panels));
+        }
+
+        [TestMethod()]
+        public void PlaceShipsWrongInputTest()
+        {
+            //arrange
+            var console = new ConsoleTestWrapper();
+            console.LinesToRead = new List<string>
+            {
+                "v",
+                "23",
+                "h",
+                "F4",
+                "v",
+                "D9",
+                "v",
+                "B4"
+            };
+            var player = new Player1();
+            player.ShipsList.Ships.Clear();
+            player.ShipsList.Ships.Add(new Battleship());
+            player.ShipsList.Ships.Add(new Destroyer());
+            char[,] expected = {
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', 'D', '~', '~', '~', 'B', 'B', 'B', 'B', 'B'},
+                {'~', 'D', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', 'D', '~', '~', '~', '~', '~', '~', '~', '~'},
+                {'~', 'D', '~', '~', '~', '~', '~', '~', '~', '~'},
                 {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
                 {'~', '~', '~', '~', '~', '~', '~', '~', '~', '~'},
             };
