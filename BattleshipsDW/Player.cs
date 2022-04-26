@@ -108,7 +108,6 @@ public abstract class Player
     }
 }
 
-
 public class Player1 : Player
 {
     public Player1()
@@ -134,14 +133,14 @@ public class Player1 : Player
                     continue;
                 }
                 console.WriteLine($"Placing {ship.Name}, length of this ship is {ship.Length}.");
-                console.WriteLine("Choose ship orientation (h - horizontal, v - vertical):");
+                console.WriteLine("Choose ship orientation (H - horizontal, V - vertical):");
                 string orientation = console.ReadLine();
                 Alignment alignment;
-                if (orientation == "h")
+                if (orientation == "H")
                 {
                     alignment = Alignment.Horizontal;
                 }
-                else if (orientation == "v")
+                else if (orientation == "V")
                 {
                     alignment = Alignment.Vertical;
                 }

@@ -146,9 +146,9 @@ namespace BattleshipsDW.Tests
             var console = new ConsoleTestWrapper();
             console.LinesToRead = new List<string>
             { 
-                "v",
+                "V",
                 "D3",
-                "h",
+                "H",
                 "F4"
             };
             var player = new Player1();
@@ -180,13 +180,13 @@ namespace BattleshipsDW.Tests
             var console = new ConsoleTestWrapper();
             console.LinesToRead = new List<string>
             {
-                "v",
+                "V",
                 "23",
-                "h",
+                "H",
                 "F4",
-                "v",
+                "V",
                 "D9",
-                "v",
+                "V",
                 "B4"
             };
             var player = new Player1();
