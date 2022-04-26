@@ -295,13 +295,19 @@ public class Player2 : Player
                 stop = true;
                 firing = $"{Name}: {position}";
             }
-            else if (TargetGrid.Panels[x, y] == 'X')
+            else if (TargetGrid.Panels[x, y] == 'X' && lastHitXY != null)
             {
-                if (lastHitXY != null)
-                {
+                
                     lastHitXY.X += shipDirection.Item1;
                     lastHitXY.Y += shipDirection.Item2;
-                }
+                
+            }
+            else if (TargetGrid.Panels[x, y] == '@' && lastHitXY != null)
+            {
+                
+                    shipDirection.Item1 = -shipDirection.Item1;
+                    shipDirection.Item2 = -shipDirection.Item2;
+                
             }
         }
     }
