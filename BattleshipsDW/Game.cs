@@ -66,7 +66,7 @@ namespace BattleshipsDW
                 second.React(xy, out string message2);
                 first.InterpretMessage(message2, xy);
                 turnSummary = $"{turnSummary}\n{firing2}\n{message2}\n";
-                if (second.AllShipsSunk()) return first.Name;
+                if (second.ShipsList.AllShipsSunk()) return first.Name;
             }
             console.Clear();
             console.WriteLine("Fire!");
