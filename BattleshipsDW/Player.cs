@@ -204,18 +204,20 @@ public class Player1 : Player
                     stop = true;
                 }
             }
-            console.WriteLine("Can't attack this coordinates.");
+            else console.WriteLine("Can't attack this coordinates.");
         }
     }
 }
 public class Player2 : Player
 {
+    
     public Player2()
     {
         Name = "Player2";
         OceanGrid = new Grid();
         TargetGrid = new Grid();
         ShipsList = new Fleet();
+        
     }
     public void PlaceShips()
     {
@@ -244,6 +246,7 @@ public class Player2 : Player
         xy = new XY(0, 0);
         bool stop = false;
         firing = "";
+
         while (!stop)
         {
             Random random = new();
