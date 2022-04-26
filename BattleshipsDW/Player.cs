@@ -13,6 +13,8 @@ public abstract class Player
     public Grid OceanGrid;
     public Grid TargetGrid;
     public Fleet ShipsList;
+    protected XY lastHitXY;
+    protected (int, int) shipDirection;
 
     public Player()
     {
@@ -60,7 +62,7 @@ public abstract class Player
         }
         else return false;
     }
-    
+
 
     public void React(XY xy, out string message)
     {
@@ -94,16 +96,23 @@ public abstract class Player
         if (result.Contains("Miss"))
         {
             TargetGrid.Panels[xy.X, xy.Y] = '@';
+            shipDirection.Item1 = -shipDirection.Item1;
+            shipDirection.Item2 = -shipDirection.Item2;
         }
         else if (result.Contains("Hit"))
         {
             TargetGrid.Panels[xy.X, xy.Y] = 'X';
+            if (lastHitXY != null)
+                shipDirection = (xy.X - lastHitXY.X, xy.Y - lastHitXY.Y);
+            lastHitXY = xy;
         }
         else if (result.Contains("Sunk"))
         {
             TargetGrid.Panels[xy.X, xy.Y] = 'X';
             Ship sunk = ShipsList.Ships.Find(z => z.Name == result[1] && !z.EnemySunk);
             sunk.EnemySunk = true;
+            lastHitXY = null;
+            shipDirection = (0, 0);
         }
     }
 }
@@ -210,14 +219,13 @@ public class Player1 : Player
 }
 public class Player2 : Player
 {
-    
+
     public Player2()
     {
         Name = "Player2";
         OceanGrid = new Grid();
         TargetGrid = new Grid();
         ShipsList = new Fleet();
-        
     }
     public void PlaceShips()
     {
@@ -246,18 +254,54 @@ public class Player2 : Player
         xy = new XY(0, 0);
         bool stop = false;
         firing = "";
+        int x;
+        int y;
+        var moves = new List<(int, int)>
+        {
+            (0,1), (1,0), (0,-1), (-1,0)
+        };
 
         while (!stop)
         {
-            Random random = new();
-            int x = random.Next(10);
-            int y = random.Next(10);
+            if (lastHitXY != null)
+            {
+                // hit lastHitXY +/-
+                if (shipDirection != (0, 0))
+                {
+                    x = lastHitXY.X + shipDirection.Item1;
+                    y = lastHitXY.Y + shipDirection.Item2;
+                }
+                else
+                {
+                    var move = moves[0];
+                    x = lastHitXY.X + move.Item1;
+                    y = lastHitXY.Y + move.Item2;
+                    moves.RemoveAt(0);
+                    if (x >= OceanGrid.Size || y >= OceanGrid.Size)
+                        continue;
+                }
+            }
+            else
+            {
+                //random
+                Random random = new();
+                x = random.Next(10);
+                y = random.Next(10);
+            }
             if (TargetGrid.Panels[x, y] == '~')
             {
                 xy = new XY(x, y);
                 string position = xy.ToPosition();
                 stop = true;
                 firing = $"{Name}: {position}";
+            }
+            else if (TargetGrid.Panels[x, y] == 'X')
+            {
+                if (lastHitXY != null)
+                {
+                    lastHitXY.X += shipDirection.Item1;
+                    lastHitXY.Y += shipDirection.Item2;
+                }
             }
         }
     }
