@@ -25,18 +25,18 @@ namespace BattleshipsDW
 
                 switch (command)
                 {
-                    case "s":
+                    case "S":
                         PlayGame();
                         break;
-                    case "h":
+                    case "H":
                         PrintGameHelp();
                         break;
-                    case "x":
+                    case "X":
                         exit = true;
                         break;
                     default:
                         Console.WriteLine("ERROR - Invalid Command");
-                        Console.WriteLine("Type 'h' for help.");
+                        Console.WriteLine("Type 'H' for help.");
                         break;
                 }
             }
@@ -55,9 +55,9 @@ namespace BattleshipsDW
                 "@@ BATTLESHIPS @@\n" +
                 "\n" +
                 "Main menu \n" +
-                "s -- Start the game\n" +
-                "h -- Print help\n" +
-                "x -- Exit the program\n"
+                "S -- Start the game\n" +
+                "H -- Print help\n" +
+                "X -- Exit the program\n"
                 );
         }
 
