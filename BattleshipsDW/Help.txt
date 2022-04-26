@@ -12,7 +12,7 @@ then enter coordinates in the form of A5 + ENTER.
 
 EXAMPLE:
 Placing Battleship, length of this ship is 5.
-Choose ship orientation (h - horizontal, v - vertical):
+Choose ship orientation (H - horizontal, V - vertical):
 h
 Input coordinates e.g. B2 or G3 :
 C3
