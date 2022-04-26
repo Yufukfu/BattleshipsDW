@@ -43,7 +43,7 @@ namespace BattleshipsDW
                     {
                         '~' => ConsoleColor.Blue,
                         'X' => ConsoleColor.Red,
-                        '@' => ConsoleColor.DarkBlue,
+                        '@' => ConsoleColor.Cyan,
                         '#' => ConsoleColor.DarkBlue,
                         _ => ConsoleColor.White,
                     };
