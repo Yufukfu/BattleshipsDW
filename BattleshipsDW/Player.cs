@@ -277,8 +277,22 @@ public class Player2 : Player
                     x = lastHitXY.X + move.Item1;
                     y = lastHitXY.Y + move.Item2;
                     moves.RemoveAt(0);
-                    if (x >= OceanGrid.Size || y >= OceanGrid.Size)
-                        continue;
+                }
+                if (x >= OceanGrid.Size || x < 0 || y >= OceanGrid.Size || y < 0)
+                {
+                    shipDirection.Item1 = -shipDirection.Item1;
+                    shipDirection.Item2 = -shipDirection.Item2;
+                    continue;
+                }
+                if (TargetGrid.Panels[x, y] == 'X')
+                {
+                    lastHitXY.X += shipDirection.Item1;
+                    lastHitXY.Y += shipDirection.Item2;
+                }
+                else if (TargetGrid.Panels[x, y] == '@')
+                {
+                    shipDirection.Item1 = -shipDirection.Item1;
+                    shipDirection.Item2 = -shipDirection.Item2;
                 }
             }
             else
@@ -297,17 +311,17 @@ public class Player2 : Player
             }
             else if (TargetGrid.Panels[x, y] == 'X' && lastHitXY != null)
             {
-                
-                    lastHitXY.X += shipDirection.Item1;
-                    lastHitXY.Y += shipDirection.Item2;
-                
+
+                lastHitXY.X += shipDirection.Item1;
+                lastHitXY.Y += shipDirection.Item2;
+
             }
             else if (TargetGrid.Panels[x, y] == '@' && lastHitXY != null)
             {
-                
-                    shipDirection.Item1 = -shipDirection.Item1;
-                    shipDirection.Item2 = -shipDirection.Item2;
-                
+
+                shipDirection.Item1 = -shipDirection.Item1;
+                shipDirection.Item2 = -shipDirection.Item2;
+
             }
         }
     }

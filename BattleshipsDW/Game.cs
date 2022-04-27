@@ -45,6 +45,7 @@ namespace BattleshipsDW
         {
             dynamic first = player1;
             dynamic second = player2;
+            string winner = "";
             var turnSummary = "";
             for (int i = 0; i < 2; i++)
             {
@@ -65,13 +66,17 @@ namespace BattleshipsDW
                 second.React(xy, out string message2);
                 first.InterpretMessage(message2, xy);
                 turnSummary = $"{turnSummary}\n{firing2}\n{message2}\n";
-                console.Clear();
-                console.WriteLine("Fire!");
-                player1.PrintStatus();
-                console.WriteLine(turnSummary);
-                if (second.ShipsList.AllShipsSunk()) return first.Name;
+                if (second.ShipsList.AllShipsSunk())
+                {
+                    winner = first.Name;
+                    break;
+                }
             }
-            return "";
+            console.Clear();
+            console.WriteLine("Fire!");
+            player1.PrintStatus();
+            console.WriteLine(turnSummary);
+            return winner;
         }
     }
 }
