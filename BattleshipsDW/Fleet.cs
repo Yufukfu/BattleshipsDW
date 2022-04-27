@@ -21,9 +21,6 @@ namespace BattleshipsDW
         }
         public bool AllShipsAlive()
         {
-            // return Ships.All(ship => !ship.IsSunk());
-            // var xdd = Ships.Where(z => z.Hits > 0).Select(y => y.Name);
-
             foreach (Ship ship in Ships)
             {
                 if (ship.IsSunk() == true) return false;

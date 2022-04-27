@@ -10,8 +10,6 @@ namespace BattleshipsDW
     {
         public int Size;
         public char[,] Panels;
-        public Fleet Ships;
-
         public Grid()
         {
             Size = 10;

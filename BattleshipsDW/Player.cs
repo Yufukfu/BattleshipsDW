@@ -31,7 +31,7 @@ public abstract class Player
         ShipsList = new Fleet();
     }
 
-    public void PrintStatus()// print board and ships left
+    public void PrintStatus()
     {
         Console.WriteLine("Enemy ships left: ");
         foreach (Ship ship in ShipsList.Ships)
@@ -62,7 +62,6 @@ public abstract class Player
         }
         else return false;
     }
-
 
     public void React(XY xy, out string message)
     {
@@ -219,7 +218,6 @@ public class Player1 : Player
 }
 public class Player2 : Player
 {
-
     public Player2()
     {
         Name = "Player2";
@@ -238,9 +236,6 @@ public class Player2 : Player
                     Alignment alignment = Alignment.Horizontal;
                     Random random = new();
                     if (random.Next() % 2 == 0) alignment = Alignment.Vertical;
-
-                    // var alignment1 = (random.Next() % 2 == 0) ? Alignment.Horizontal : Alignment.Vertical;
-
                     int x = random.Next(10);
                     int y = random.Next(10);
                     bool shipPlaced = OceanGrid.PlaceShip(x, y, alignment, ship);
@@ -266,7 +261,7 @@ public class Player2 : Player
         {
             if (lastHitXY != null)
             {
-                // hit lastHitXY +/-
+                // target lastHitXY neighbours
                 if (shipDirection != (0, 0))
                 {
                     x = lastHitXY.X + shipDirection.Item1;
@@ -298,7 +293,7 @@ public class Player2 : Player
             }
             else
             {
-                //random
+                // random
                 Random random = new();
                 x = random.Next(10);
                 y = random.Next(10);
@@ -309,20 +304,6 @@ public class Player2 : Player
                 string position = xy.ToPosition();
                 stop = true;
                 firing = $"{Name}: {position}";
-            }
-            else if (TargetGrid.Panels[x, y] == 'X' && lastHitXY != null)
-            {
-
-                lastHitXY.X += shipDirection.Item1;
-                lastHitXY.Y += shipDirection.Item2;
-
-            }
-            else if (TargetGrid.Panels[x, y] == '@' && lastHitXY != null)
-            {
-
-                shipDirection.Item1 = -shipDirection.Item1;
-                shipDirection.Item2 = -shipDirection.Item2;
-
             }
         }
     }

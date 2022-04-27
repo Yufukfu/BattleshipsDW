@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipsDW
 {
-    public class Ship
+    public abstract class Ship
     {
         public string Name;
         public List<XY> Coordinates;

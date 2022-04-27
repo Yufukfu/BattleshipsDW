@@ -15,8 +15,9 @@ namespace BattleshipsDW
             Console.WindowHeight = 45;
             PrintHelp();
             bool exit = false;
-            while (!exit) // main menu
+            while (!exit) 
             {
+                // main menu
                 string command = Console.ReadLine();
                 Console.Clear();
                 PrintHelp();
@@ -43,7 +44,7 @@ namespace BattleshipsDW
             Console.WriteLine("Good bye!");
         }
 
-        private static void PlayGame() //game
+        private static void PlayGame()
         {
             Game game = new();
             game.StartGame();
