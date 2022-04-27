@@ -13,7 +13,7 @@ public abstract class Player
     public Grid OceanGrid;
     public Grid TargetGrid;
     public Fleet ShipsList;
-    protected XY lastHitXY;
+    protected XY? lastHitXY;
     protected (int, int) shipDirection;
 
     public Player()
@@ -109,8 +109,8 @@ public abstract class Player
         else if (result.Contains("Sunk"))
         {
             TargetGrid.Panels[xy.X, xy.Y] = 'X';
-            Ship sunk = ShipsList.Ships.Find(z => z.Name == result[1] && !z.EnemySunk);
-            sunk.EnemySunk = true;
+            Ship? sunk = ShipsList.Ships.Find(z => z.Name == result[1] && !z.EnemySunk);
+            if (sunk != null) sunk.EnemySunk = true;
             lastHitXY = null;
             shipDirection = (0, 0);
         }
@@ -251,6 +251,7 @@ public class Player2 : Player
     }
     public void Fire(out XY xy, IConsole console, out string firing)
     {
+        console.WriteLine("");
         xy = new XY(0, 0);
         bool stop = false;
         firing = "";

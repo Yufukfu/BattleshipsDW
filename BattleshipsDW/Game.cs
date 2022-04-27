@@ -9,9 +9,9 @@ namespace BattleshipsDW
     public class Game
     {
         private TurnState turn;
-        private IConsole console;
-        private Player1 player1;
-        private Player2 player2;
+        private readonly IConsole console;
+        private readonly Player1 player1;
+        private readonly Player2 player2;
 
         public Game()
         {
