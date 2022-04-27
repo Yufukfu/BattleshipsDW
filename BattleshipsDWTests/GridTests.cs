@@ -94,7 +94,7 @@ namespace BattleshipsDW.Tests
         }
 
         [TestMethod()]
-        public void PlaceShipOutOfBandsTest()
+        public void PlaceShipOutOfBoundsTest()
         {
             //arrange
             Ship ship = new Battleship();

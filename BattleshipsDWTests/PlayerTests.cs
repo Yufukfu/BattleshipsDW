@@ -35,7 +35,7 @@ namespace BattleshipsDW.Tests
             Assert.IsTrue(!valid && x == 0 && y == 0);
         }
         [TestMethod()]
-        public void CheckInputOutOfBandsTest()
+        public void CheckInputOutOfBoundsTest()
         {
             //arrange
             string position = "N2";
